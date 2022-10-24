@@ -10,8 +10,6 @@ export default class UserService {
   public login = async ({ email }: ILogin): Promise<IUser | null> => {
     const user = await UserModel.findOne(({ where: { email } }));
     return user;
-    // const token = tokenGenerator({ email });
-    // return token;
   };
 
   public getRoleUser = (token: string) => {

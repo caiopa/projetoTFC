@@ -1,7 +1,6 @@
 import { sign } from 'jsonwebtoken';
 import dotenv = require('dotenv');
 import { IUser } from '../Interfaces';
-// import { IEmail } from '../Interfaces';
 
 dotenv.config();
 

@@ -13,13 +13,10 @@ async function auth(req: Request, res: Response, next: NextFunction) {
 
   const user = await service.login(req.body);
   if (!user) return res.status(401).json({ message: 'Incorrect email or password' });
-  // if (!user?.email || user?.password) {
-  //   return res.status(401).json({ message: 'Incorrectaaaaaa email or password' });
-  // }
+
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(401).json({ message: 'Incorrect email or password' });
-
-  const token = generateToken(email);
+  const token = generateToken(user);
   res.status(200).json({ token });
 
   next();

@@ -2,6 +2,7 @@
 import UserModel from '../models/User';
 // import ErrorGene from '../utils/errorGene';
 import { ILogin, IUser } from '../Interfaces';
+import authenticateToken from '../utils/authToken';
 
 export default class UserService {
   private _loginModel: UserModel;
@@ -11,5 +12,11 @@ export default class UserService {
     return user;
     // const token = tokenGenerator({ email });
     // return token;
+  };
+
+  public getRoleUser = (token: string) => {
+    const roleUser = authenticateToken(token);
+    console.log(roleUser);
+    return roleUser.payload.role;
   };
 }

@@ -1,6 +1,6 @@
-// import { Response, Request } from 'express';
-// import { StatusCodes } from 'http-status-codes';
+import { Response, Request } from 'express';
 import UserService from '../service/user.service';
+// import authenticateToken from '../utils/authToken';
 
 export default class UserController {
   private _userService: UserService;
@@ -13,4 +13,12 @@ export default class UserController {
   //   const token = await this._userService.login(req.body);
   //   return res.status(200).json({ token });
   // };
+
+  public getRoleUser = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).json({ message: 'Token invalid' });
+    const role = this._userService.getRoleUser(authorization as string);
+
+    return res.status(200).json({ role });
+  };
 }

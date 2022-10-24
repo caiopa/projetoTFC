@@ -1,12 +1,16 @@
 import { sign } from 'jsonwebtoken';
 import dotenv = require('dotenv');
-import { IUser } from '../Interfaces';
+// import { IEmail } from '../Interfaces';
 
 dotenv.config();
 
 const secretKey: string = process.env.JWT_SECRET || '123456';
 
-export default function generateToken({ email }: IUser) {
+interface IPayload<T> {
+  [key: string]: T
+}
+
+export default function generateToken<T>({ email }: IPayload<T>): string {
   const payload = {
     email,
   };

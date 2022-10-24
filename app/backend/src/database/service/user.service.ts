@@ -1,17 +1,15 @@
-import tokenGenerator from '../utils/JWT';
+// import tokenGenerator from '../utils/JWT';
 import UserModel from '../models/User';
-import ErrorGene from '../utils/errorGene';
-import { IUser } from '../Interfaces';
+// import ErrorGene from '../utils/errorGene';
+import { ILogin, IUser } from '../Interfaces';
 
-export default class LoginService {
+export default class UserService {
   private _loginModel: UserModel;
 
-  public login = async ({ email }: IUser): Promise<string> => {
+  public login = async ({ email }: ILogin): Promise<IUser | null> => {
     const user = await UserModel.findOne(({ where: { email } }));
-
-    if (!user) throw new ErrorGene(401, 'Username or email invalid');
-
-    const token = tokenGenerator(user as UserModel);
-    return token;
+    return user;
+    // const token = tokenGenerator({ email });
+    // return token;
   };
 }

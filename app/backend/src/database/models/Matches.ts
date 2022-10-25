@@ -1,4 +1,4 @@
-import { Model, INTEGER, NUMBER } from 'sequelize';
+import { Model, INTEGER, NUMBER, BOOLEAN } from 'sequelize';
 import db from '.';
 
 class Matches extends Model {
@@ -34,14 +34,17 @@ Matches.init({
     allowNull: false,
   },
   inProgress: {
-    type: NUMBER,
+    type: BOOLEAN,
     allowNull: false,
   },
 }, {
   sequelize: db,
   underscored: true,
   modelName: 'matches',
+  tableName: 'matches',
   timestamps: false,
 });
+
+//
 
 export default Matches;

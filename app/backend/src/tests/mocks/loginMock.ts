@@ -1,5 +1,5 @@
 export const findUser = {
-    id: 1,
+    id: 2,
     username: 'user',
     role: 'user',
     email: 'user@user.com',

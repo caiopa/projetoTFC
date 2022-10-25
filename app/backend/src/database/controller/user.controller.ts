@@ -16,7 +16,6 @@ export default class UserController {
 
   public getRoleUser = async (req: Request, res: Response) => {
     const { authorization } = req.headers;
-    if (!authorization) return res.status(401).json({ message: 'Token invalid' });
     const role = this._userService.getRoleUser(authorization as string);
 
     return res.status(200).json({ role });

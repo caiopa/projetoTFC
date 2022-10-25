@@ -14,7 +14,6 @@ export default class UserService {
 
   public getRoleUser = (token: string) => {
     const roleUser = authenticateToken(token);
-    console.log(roleUser);
     return roleUser.payload.role;
   };
 }

@@ -15,25 +15,25 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Teste rota login ', () => {
-  describe('Verificar se e possivel logar', async () => {
-    async () => {
-      sinon.stub(User, 'findOne').resolves(findUser as User);
+  beforeEach(() => {
+    sinon.restore();
+  });
+    it('Verificar se e possivel logar e retorna status 200', async () => {
+    beforeEach(() => { sinon.stub(User, 'findOne').resolves(findUser as User)})
 
-      const resposta = await chai.request(app).post('/login').send({
-        email: 'user@user.com',
-        password: 'secret_user'
-      });
-    }
-    beforeEach(() => {
-      sinon.restore();
+    const res = await chai.request(app).post('/login').send(findUser);
+    expect(res.status).to.be.eq(200);
+    expect(res.body).to.have.property('token');
+      
     });
-    
+
     it('Verifica se retorna um status 400 quando email nao informado', async () => {
       const res  = await chai.request(app).post('/login').send({ password: 'invalid'})
 
       expect(res.status).to.be.eq(400)
       expect(res.body).to.deep.equal({ message:  'All fields must be filled'})
     });
+
     it('Verifica se retorna um status 400 quando senha nao informado', async () => {
       const res  = await chai.request(app).post('/login').send({ email: 'invalid@invalid.com'})
       expect(res.status).to.be.eq(400)
@@ -50,8 +50,5 @@ describe('Teste rota login ', () => {
       const res = await chai.request(app).post('/login').send({ email: 'invalid@user.com',  password: 'secret_user'})
       expect(res.status).to.be.eq(401)
       expect(res.body).to.deep.equal({ message: 'Incorrect email or password'})
-})
   })
- 
-  
-});
+})

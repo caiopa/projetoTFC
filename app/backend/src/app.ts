@@ -1,6 +1,7 @@
 import * as express from 'express';
 import routerLogin from './routes/login';
 import routerTeam from './routes/teams';
+import routerMatches from './routes/matches';
 
 class App {
   public app: express.Express;
@@ -28,6 +29,8 @@ class App {
     this.app.use('/login', routerLogin);
 
     this.app.use('/teams', routerTeam);
+
+    this.app.use('/matches', routerMatches);
 
     // this.app.use(errorHandler);
   }

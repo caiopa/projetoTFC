@@ -21,10 +21,15 @@ export default class MatchesController {
   };
 
   public createMatch = async (req: Request, res: Response) => {
-    console.log('body', req.body);
+    const createdMatch = await this._service.createMatch(req.body);
 
-    const createdMatchId = await this._service.createMatch(req.body);
-    console.log('created', createdMatchId);
-    res.status(201).json(createdMatchId);
+    res.status(201).json(createdMatch);
+  };
+
+  public changeProgress = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    await this._service.changeProgress(id);
+    return res.status(200).json({ message: 'Finished' });
   };
 }

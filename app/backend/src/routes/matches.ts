@@ -12,4 +12,6 @@ matchesRouter.get('/', matchesController.getMatches);
 
 matchesRouter.post('/', matchesController.createMatch);
 
+matchesRouter.patch('/:id/finish', matchesController.changeProgress);
+
 export default matchesRouter;

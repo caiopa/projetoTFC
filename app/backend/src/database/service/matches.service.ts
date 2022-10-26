@@ -27,9 +27,11 @@ export default class MatchesService {
   };
 
   public createMatch = async (body: IMatche): Promise<IMatche> => {
-    console.log('bodyyyyy', body);
     const createdMatch = await Matches.create({ ...body, inProgress: true });
-    console.log('service', createdMatch);
     return createdMatch;
+  };
+
+  public changeProgress = async (id: string): Promise<void> => {
+    await Matches.update({ inProgress: false }, { where: { id } });
   };
 }

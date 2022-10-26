@@ -11,6 +11,7 @@ export default class MatchesController {
 
   public getMatches = async (req: Request, res: Response) => {
     const { inProgress } = req.query;
+    console.log(req.query);
     const trueFalse = inProgress === 'true';
     if (inProgress) {
       const matches = await this._service.getByProgress(trueFalse);
@@ -21,6 +22,12 @@ export default class MatchesController {
   };
 
   public createMatch = async (req: Request, res: Response) => {
+    const { homeTeam, awayTeam } = req.body;
+
+    if (homeTeam === awayTeam) {
+      return res.status(422)
+        .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
     const createdMatch = await this._service.createMatch(req.body);
 
     res.status(201).json(createdMatch);

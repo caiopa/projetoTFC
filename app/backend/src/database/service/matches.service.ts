@@ -2,6 +2,7 @@
 import { IMatche } from '../Interfaces';
 import Matches from '../models/Matches';
 import Team from '../models/Team';
+import ErrorGene from '../utils/errorGene';
 
 export default class MatchesService {
   private _modelMatches: Matches;
@@ -26,7 +27,15 @@ export default class MatchesService {
     return matches;
   };
 
+  private static teamExists = async (id: number): Promise<void> => {
+    const team = await Team.findByPk(id);
+    if (!team) throw new ErrorGene(404, 'There is no team with such id!');
+  };
+
   public createMatch = async (body: IMatche): Promise<IMatche> => {
+    await MatchesService.teamExists(body.homeTeam);
+    await MatchesService.teamExists(body.awayTeam);
+
     const createdMatch = await Matches.create({ ...body, inProgress: true });
     return createdMatch;
   };

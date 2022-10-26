@@ -1,4 +1,5 @@
 // import { IMatches } from '../Interfaces';
+import { IMatche } from '../Interfaces';
 import Matches from '../models/Matches';
 import Team from '../models/Team';
 
@@ -23,5 +24,12 @@ export default class MatchesService {
       ],
     });
     return matches;
+  };
+
+  public createMatch = async (body: IMatche): Promise<IMatche> => {
+    console.log('bodyyyyy', body);
+    const createdMatch = await Matches.create({ ...body, inProgress: true });
+    console.log('service', createdMatch);
+    return createdMatch;
   };
 }

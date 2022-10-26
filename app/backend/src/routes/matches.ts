@@ -10,6 +10,6 @@ const matchesController = new MatchesController(matchesService);
 
 matchesRouter.get('/', matchesController.getMatches);
 
-// matchesRouter.get('/:id', teamController.getById);
+matchesRouter.post('/', matchesController.createMatch);
 
 export default matchesRouter;

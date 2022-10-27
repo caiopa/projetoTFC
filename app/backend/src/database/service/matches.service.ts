@@ -1,5 +1,4 @@
-// import { IMatches } from '../Interfaces';
-import { IMatche } from '../Interfaces';
+import { IMatche, IMatcheUp } from '../Interfaces';
 import Matches from '../models/Matches';
 import Team from '../models/Team';
 import ErrorGene from '../utils/errorGene';
@@ -42,5 +41,11 @@ export default class MatchesService {
 
   public changeProgress = async (id: string): Promise<void> => {
     await Matches.update({ inProgress: false }, { where: { id } });
+  };
+
+  public updateMatch = async ({ homeTeamGoals, awayTeamGoals }: IMatcheUp, id: string)
+  : Promise<void> => {
+    await Matches.update({
+      homeTeamGoals, awayTeamGoals }, { where: { id } });
   };
 }

@@ -47,3 +47,9 @@ export interface IMatcheCreated {
   awayTeamGoals: number,
   inProgress: boolean,
 }
+
+export interface IMatcheUp {
+  id?: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number
+}

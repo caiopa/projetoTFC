@@ -15,4 +15,6 @@ matchesRouter.post('/', /* validateToken */ matchesController.createMatch);
 
 matchesRouter.patch('/:id/finish', matchesController.changeProgress);
 
+matchesRouter.patch('/:id', matchesController.updateMatch);
+
 export default matchesRouter;

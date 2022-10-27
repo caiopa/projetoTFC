@@ -1,9 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
-// import Matches from '../models/Matches';
-// mport Matches from '../models/Matches';
 import MatchesService from '../service/matches.service';
 import authenticateToken from '../utils/authToken';
-// import ErrorGene from '../utils/errorGene';
+// import { IMatcheUp } from '../Interfaces';
 
 export default class MatchesController {
   private _service: MatchesService;
@@ -23,8 +21,6 @@ export default class MatchesController {
   };
 
   public createMatch = async (req: Request, res: Response, _next: NextFunction) => {
-    // const { authorization } = req.headers;
-    // if (!authorization) return res.status(401).json({ message: 'Token not found' });
     authenticateToken(req.headers.authorization as string);
 
     const { homeTeam, awayTeam } = req.body;
@@ -42,5 +38,13 @@ export default class MatchesController {
 
     await this._service.changeProgress(id);
     return res.status(200).json({ message: 'Finished' });
+  };
+
+  public updateMatch = async (req: Request, res: Response) => {
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { id } = req.params;
+
+    await this._service.updateMatch({ homeTeamGoals, awayTeamGoals }, id);
+    return res.status(200).json({ message: 'updated' });
   };
 }

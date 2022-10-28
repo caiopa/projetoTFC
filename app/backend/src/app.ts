@@ -3,6 +3,8 @@ import 'express-async-errors';
 import routerLogin from './routes/login';
 import routerTeam from './routes/teams';
 import routerMatches from './routes/matches';
+import routerLeaderboard from './routes/leaderboard';
+
 import errorHandler from './database/middlewares/error.middleware';
 
 class App {
@@ -16,6 +18,7 @@ class App {
     this.app.use('/login', routerLogin);
     this.app.use('/teams', routerTeam);
     this.app.use('/matches', routerMatches);
+    this.app.use('/leaderboard', routerLeaderboard);
     this.app.use(errorHandler);
 
     // Não remover essa rota

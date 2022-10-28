@@ -1,4 +1,4 @@
-import { IMatche, IMatcheUp } from '../Interfaces';
+import { IMatcheII, IMatcheUp } from '../Interfaces';
 import Matches from '../models/Matches';
 import Team from '../models/Team';
 import ErrorGene from '../utils/errorGene';
@@ -31,7 +31,7 @@ export default class MatchesService {
     if (!team) throw new ErrorGene(404, 'There is no team with such id!');
   };
 
-  public createMatch = async (body: IMatche): Promise<IMatche> => {
+  public createMatch = async (body: IMatcheII): Promise<IMatcheII> => {
     await MatchesService.teamExists(body.homeTeam);
     await MatchesService.teamExists(body.awayTeam);
 
